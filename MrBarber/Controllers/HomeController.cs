@@ -26,5 +26,11 @@ namespace MrBarber.Controllers
 
             return View();
         }
+
+        public ActionResult RegistoView()
+        {
+        
+            return View();
+        }
     }
 }
