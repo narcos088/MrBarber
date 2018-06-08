@@ -45,17 +45,8 @@ namespace MrBarber.Controllers
 
             using (MrBarberDatabaseEntities db = new MrBarberDatabaseEntities())
             {
-                Localizacao loc = new Localizacao
-                {
-                    LatitudeE = 0,
-                    LatitudeO = 0,
-                    LatitudeN = 0,
-                    LatitudeS = 0,
-                    idLocalizacao = 1
-                };
-
-                cliente.Localizacao = 1;
-                db.Localizacaos.Add(loc);
+             
+               
                 db.Clientes.Add(cliente);
                 db.SaveChanges();
             }
