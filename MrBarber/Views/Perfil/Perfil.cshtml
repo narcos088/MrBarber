@@ -1,0 +1,82 @@
+﻿@model MrBarber.Models.Cliente
+
+@{
+    ViewBag.Title = "Perfil";
+}
+
+
+@using (Html.BeginForm("Termos2", "Termos", FormMethod.Post))
+{
+    <table class="table table-hover">
+        <tbody>
+            <tr class="table-info">
+                <th scope="row">@Html.DisplayNameFor(model => model.Nome)</th>
+                <td> @Html.DisplayFor(modelItem => modelItem.Nome)</td>
+            </tr>
+
+            <tr class="table-info">
+                <th scope="row"> @Html.DisplayNameFor(model => model.DataNascimento)</th>
+                <td> @Html.DisplayFor(modelItem => modelItem.DataNascimento) </td>
+            </tr>
+
+            <tr class="table-info">
+                <th scope="row">  @Html.DisplayNameFor(model => model.ContactoTelefonico)</th>
+                <td> @Html.DisplayFor(modelItem => modelItem.ContactoTelefonico)</td>
+
+            </tr>
+
+            <tr class="table-info">
+                <th scope="row"> @Html.DisplayNameFor(model => model.Email)</th>
+                <td> @Html.DisplayFor(modelItem => modelItem.Email)</td>
+
+            </tr>
+            <tr class="table-info">
+                <th scope="row">  @Html.DisplayNameFor(model => model.Password)</th>
+                <td>  @Html.DisplayFor(modelItem => modelItem.Password)</td>
+            </tr>
+            <tr class="table-info">
+                <th scope="row">    @Html.DisplayNameFor(model => model.NIF)</th>
+                <td>    @Html.DisplayFor(modelItem => modelItem.NIF)</td>
+
+            </tr>
+            <tr class="table-info">
+                <th scope="row"> @Html.DisplayNameFor(model => model.CodigoProm)</th>
+                <td>     @Html.DisplayFor(modelItem => modelItem.CodigoProm)</td>
+            </tr>
+            <tr class="table-info">
+                <th scope="row">  @Html.DisplayNameFor(model => model.CodigoAmigo)</th>
+                <td> @Html.DisplayFor(modelItem => modelItem.CodigoAmigo)</td>
+
+            </tr>
+            <tr class="table-info">
+                <th scope="row"> @Html.DisplayNameFor(model => model.Pontos)</th>
+                <td>  @Html.DisplayFor(modelItem => modelItem.Pontos)</td>
+
+            </tr>
+            <tr class="table-info">
+                <th scope="row">  @Html.DisplayNameFor(model => model.Localizacao)</th>
+                <td> @Html.DisplayFor(modelItem => modelItem.Localizacao)</td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Histórico" class="btn btn-default" />
+        </div>
+    </div>
+
+}
+
+
+
+@using (Html.BeginForm("Termos2", "Termos", FormMethod.Post))
+{
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Efetuar Reclamação" class="btn btn-default" />
+        </div>
+    </div>
+}

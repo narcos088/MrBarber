@@ -1,0 +1,24 @@
+﻿@model MrBarber.Models.Cliente
+
+@{
+    /**/
+
+    ViewBag.Title = "Termos";
+}
+
+
+@using (Html.BeginForm("Termos2", "Termos", FormMethod.Post))
+{
+
+    <h2>Termo 1 </h2>
+    <h2>Termo 2 </h2>
+    <h2>Termo 3 </h2>
+    <h2>Termo 4 </h2>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+
+}
