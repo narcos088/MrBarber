@@ -17,10 +17,8 @@ namespace MrBarber.Controllers
 
             Cliente cliente = (Cliente)TempData["cliente"];
             TempData.Keep("cliente");
-                return View(cliente);
+            return View(cliente);
         }
-
-
 
         [HttpPost]
         public ActionResult Historico()
