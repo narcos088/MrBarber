@@ -2,53 +2,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <style type="text/css">
-        body
-        {
-            text-align: justify;
-           
-        }
-        p{
-            font-family: 'Comic Sans MS';
-            font-size: larger;
-        }
-
-        h1{
-            text-align: right;    
-        }
-
-        h4 {
-            text-align: right;
-        }
-
-        .box {
-            height: 400px;
-            width: 400px;
-            margin: auto;
-            position: relative;
-            right: 200px;
-        }
-
-        .about {
-            height: 400px;
-            width: 400px;
-            margin: auto;
-            position: absolute;
-            top: 88px;
-        }
-
-        .logo {
-            height: 500px;
-            width: 500px;
-            margin: auto;
-        }
-
-        .centered{
-            margin: auto;
-
-        }
-
-    </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - MrBarber</title>
@@ -82,47 +35,16 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("Entrar", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Entrar", "Login", "Home")</li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="container body-content">
-            <div class="row">
-                <div class="col-md-6">
-                    <img class="logo" src="https://i.imgur.com/E3XQF6J.png">
-                </div>
-                <div class="col-md-6">
-                    <div class="about">
-                        <h1>
-                            Mr Barber
-                        </h1>
-                        <h4>
-                            On Wheels
-                        </h4>
-
-                        <br>
-                        
-                        <p>
-                            Em Março de 2017 nasceu a empresa <strong>Mr. Barber</strong> que tem vindo a dedicar
-                            o seu tempo em prol da boa imagem do homem.
-                        </p>
-                        <p>
-                            A empresa está sediada no centro de Braga, aproveitando o facto de esta
-                            ser uma cidade jovem, pois são os jovens que estão mais atentos às novas
-                            tendências, tornando-se assim o público alvo, mas nunca descorando o
-                            interesse pelas demais faixas etárias.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
     </div>
     <div class="card-body">
         <div class="container body-content">
-           <!-- @RenderBody()
-            -->
+           @RenderBody()
+            
             <hr />
             <footer>
                 <p>&copy; @DateTime.Now.Year - MrBarber</p>
