@@ -16,15 +16,12 @@ namespace MrBarber.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
-            
+   
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
 
             return View();
         }
@@ -42,11 +39,8 @@ namespace MrBarber.Controllers
 
         public ActionResult Registar(Cliente cliente)
         {
-
             using (MrBarberDatabaseEntities db = new MrBarberDatabaseEntities())
-            {
-             
-               
+            { 
                 db.Clientes.Add(cliente);
                 db.SaveChanges();
             }
