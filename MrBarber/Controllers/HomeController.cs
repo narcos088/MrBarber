@@ -57,7 +57,22 @@ namespace MrBarber.Controllers
             return RedirectToAction("Termos", "Termos");
 =======
             using (MrBarberDatabaseEntities db = new MrBarberDatabaseEntities())
+<<<<<<< HEAD
             { 
+=======
+            {
+                Localizacao loc = new Localizacao
+                {
+                    LatitudeE = 0,
+                    LatitudeO = 0,
+                    LatitudeN = 0,
+                    LatitudeS = 0,
+                    idLocalizacao = 1
+                };
+
+                cliente.Localizacao = 1;
+                db.Localizacaos.Add(loc);
+>>>>>>> parent of 8931a38... merdas
                 db.Clientes.Add(cliente);
                 db.SaveChanges();
             }
