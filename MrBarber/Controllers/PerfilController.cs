@@ -14,9 +14,10 @@ namespace MrBarber.Controllers
         [HttpGet]
         public ActionResult Perfil()
         {
+
             Cliente cliente = (Cliente)TempData["cliente"];
             TempData.Keep("cliente");
-            return View(cliente);
+                return View(cliente);
         }
 
 
@@ -26,7 +27,7 @@ namespace MrBarber.Controllers
         {
             Cliente cliente = (Cliente)TempData["cliente"];
             TempData.Keep("cliente");
-            return RedirectToAction("Historico", "Historico", cliente);
+            return RedirectToAction("Historico", "Historico");
         }
 
 
@@ -35,7 +36,7 @@ namespace MrBarber.Controllers
         {
             Cliente cliente = (Cliente)TempData["cliente"];
             TempData.Keep("cliente");
-            return RedirectToAction("Reclamacoes", "Reclamacoes", cliente);
+            return RedirectToAction("Reclamacoes", "Reclamacoes");
         }
     }
 }

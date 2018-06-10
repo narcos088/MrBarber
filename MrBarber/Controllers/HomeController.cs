@@ -17,6 +17,13 @@ namespace MrBarber.Controllers
             return View();
         }
 
+        public ActionResult Index2()
+        {
+            Cliente cliente = (Cliente)TempData["cliente"];
+            TempData.Keep("cliente");
+            return View(cliente);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -46,7 +53,7 @@ namespace MrBarber.Controllers
         {
 
             // var m = new Cliente{ idCliente = cliente.idCliente};
-            TempData["cliente"] = cliente; 
+            TempData["cliente"] = cliente;
             return RedirectToAction("Termos", "Termos");
         }
 

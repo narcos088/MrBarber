@@ -37,6 +37,10 @@ namespace MrBarber.Controllers
                     Cliente cliente = (Cliente) TempData["cliente"];
                     cliente.Pontos = 0;
                     cliente.CodigoProm = RandomString(5);
+                   /* HttpCookie User = new HttpCookie("User");
+                    User.Value = "PILA";
+                    Response.Cookies.Add(User);*/
+
                     TempData["cliente"] = cliente;
                     TempData.Keep("cliente");
                     db.Clientes.Add(cliente);
@@ -47,5 +51,10 @@ namespace MrBarber.Controllers
 
             return RedirectToAction("Perfil","Perfil");
         }
+        [HttpPost]
+            public ActionResult Recusar()
+             {
+             return RedirectToAction("Index", "Home");
+            }
+        }
     }
-}

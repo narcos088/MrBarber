@@ -4,8 +4,18 @@
     ViewBag.Title = "Historico";
 }
 
+
+
+@using (Html.BeginForm("Index2", "Home", FormMethod.Post))
+{
+    <td> @Html.DisplayFor(modelItem => modelItem.Nome)</td>
+<h2>Historico</h2>
+<h2>Historico</h2>
 <h2>Historico</h2>
 
-<h2>Historico</h2>
-<h2>Historico</h2>
-<h2>Historico</h2>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Pagina Inicial" class="btn btn-default" />
+    </div>
+</div>
+}

@@ -270,6 +270,7 @@
     <Content Include="Views\Perfil\Perfil.cshtml" />
     <Content Include="Views\Historico\Historico.cshtml" />
     <Content Include="Views\Reclamacoes\Reclamacoes.cshtml" />
+    <Content Include="Views\Home\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
