@@ -262,6 +262,8 @@
     </Content>
     <Content Include="Views\Cliente\Registar.cshtml" />
     <Content Include="Views\Home\fstRegistoLayout.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
