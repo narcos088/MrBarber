@@ -14,14 +14,13 @@ namespace MrBarber.Models
     
     public partial class Cliente
     {
-       
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cliente()
         {
             this.Agendamentoes = new HashSet<Agendamento>();
             this.Recomendacaos = new HashSet<Recomendacao>();
         }
-
+    
         public int idCliente { get; set; }
         public string Nome { get; set; }
         public System.DateTime DataNascimento { get; set; }

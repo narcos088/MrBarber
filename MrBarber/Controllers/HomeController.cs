@@ -5,25 +5,15 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using MrBarber.Models;
 
 namespace MrBarber.Controllers
 {
     public class HomeController : Controller
     {
-
-
         public ActionResult Index()
         {
             return View();
-        }
-
-        public ActionResult Index2()
-        {
-            Cliente cliente = (Cliente)TempData["cliente"];
-            TempData.Keep("cliente");
-            return View(cliente);
         }
 
         public ActionResult About()
@@ -48,31 +38,11 @@ namespace MrBarber.Controllers
         }
 
         [HttpPost]
+
         public ActionResult Registar(Cliente cliente)
         {
-<<<<<<< HEAD
-
-            // var m = new Cliente{ idCliente = cliente.idCliente};
-            TempData["cliente"] = cliente;
-            return RedirectToAction("Termos", "Termos");
-=======
             using (MrBarberDatabaseEntities db = new MrBarberDatabaseEntities())
-<<<<<<< HEAD
             { 
-=======
-            {
-                Localizacao loc = new Localizacao
-                {
-                    LatitudeE = 0,
-                    LatitudeO = 0,
-                    LatitudeN = 0,
-                    LatitudeS = 0,
-                    idLocalizacao = 1
-                };
-
-                cliente.Localizacao = 1;
-                db.Localizacaos.Add(loc);
->>>>>>> parent of 8931a38... merdas
                 db.Clientes.Add(cliente);
                 db.SaveChanges();
             }
@@ -82,14 +52,11 @@ namespace MrBarber.Controllers
             return View("Registar",new Cliente());
 
             
->>>>>>> 18faa8a827dcdb8348e935e4faf2e06a4b51047f
         }
         [HttpGet]
         public ActionResult Login()
         {
 
-<<<<<<< HEAD
-=======
             ViewBag.Message = "Your contact page.";
 
             return View();
@@ -156,6 +123,5 @@ namespace MrBarber.Controllers
 
             return View("Index");
         }
->>>>>>> 18faa8a827dcdb8348e935e4faf2e06a4b51047f
     }
 }
