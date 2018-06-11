@@ -15,16 +15,22 @@ namespace MrBarber.Controllers
         {
             Cliente cliente = (Cliente)TempData["cliente"];
             TempData.Keep("cliente");
-            return View(cliente);
-        }
 
-        [HttpPost]
-        public ActionResult VoltarPaginaInicial()
-        {
-            Cliente cliente = (Cliente)TempData["cliente"];
-            TempData.Keep("cliente");
-            //Aqui temos de criar uma pagina inical nova com o gajo logado, e com a opcao perfil no canto
-            return RedirectToAction("Index2", "Home");
+            using (MrBarberDatabaseEntities db = new MrBarberDatabaseEntities())
+            {
+
+                var agendamentos = (from m in db.Agendamentoes
+                                where m.Cliente == cliente.idCliente
+                                select m);
+
+                if ((agendamentos.ToList<Agendamento>().Count > 0))
+                {
+
+                     var myList = agendamentos.ToList<Agendamento>();
+                        return View(myList.AsEnumerable());
+                }
+            }
+            return View();
         }
     }
 }

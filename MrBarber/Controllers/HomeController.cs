@@ -23,17 +23,94 @@ namespace MrBarber.Controllers
             return View(cliente);
         }
 
-        public ActionResult About()
+        public ActionResult Catalogo2()
         {
-   
             return View();
         }
+
+        public ActionResult Catalogo()
+        {
+            return View();
+        }
+
+
+        public ActionResult Colaborador(int id2)
+        {
+            TempData["idServico"] = id2;
+            TempData.Keep("idServico");
+            return RedirectToAction("Colaborador","Colaborador");
+        }
+
+        public ActionResult Logout()
+        {
+            return View("Index");
+        }
+
+        [HttpGet]
+        public ActionResult OndeEstamos()
+        {
+            Localizacao localizacao = new Localizacao();
+
+            
+            
+            TempData["localizacao"] = localizacao;
+            TempData.Keep("localizacao");
+
+            return View(localizacao);
+        }
+
+        [HttpPost]
+        public ActionResult OndeEstamos2(string Lat, string Lng)
+        {
+
+            Localizacao localizacao = (Localizacao)TempData["localizacao"];
+         /* localizacao.Latitude = decimal.Parse(Lat, System.Globalization.CultureInfo.InvariantCulture);
+            localizacao.Longitude = System.Convert.ToDouble(Lng);*/
+
+             double x = double.Parse(Lat, System.Globalization.CultureInfo.InvariantCulture);
+             double y = double.Parse(Lng, System.Globalization.CultureInfo.InvariantCulture);
+
+            localizacao.Latitude = (decimal)x;
+            localizacao.Longitude = (decimal)y;
+
+            using (MrBarberDatabaseEntities db = new MrBarberDatabaseEntities())
+            {
+                db.Localizacaos.Add(localizacao);
+                db.SaveChanges();
+            }
+
+            return View();
+        }
+
+
+
+
+        public ActionResult Politica()
+        {
+
+            return View();
+        }
+
+        public ActionResult Politica2()
+        {
+
+            return View();
+        }
+
+
 
         public ActionResult Contact()
         {
 
             return View();
         }
+
+        public ActionResult Contact2()
+        {
+
+            return View();
+        }
+
 
         [HttpGet]
         public ActionResult Registar()
@@ -45,20 +122,29 @@ namespace MrBarber.Controllers
         }
 
         [HttpPost]
-
         public ActionResult Registar(Cliente cliente)
         {
+
+            TempData["cliente"] = cliente;
+            TempData.Keep("cliente");
             using (MrBarberDatabaseEntities db = new MrBarberDatabaseEntities())
-            { 
-                db.Clientes.Add(cliente);
-                db.SaveChanges();
+            {
+                if (ModelState.IsValid)
+                {
+                    var clientes = (from m in db.Clientes
+                                    where m.CodigoProm == cliente.CodigoAmigo
+                                    select m);
+
+                    if (clientes.ToList<Cliente>().Count > 0)
+                    {
+                        return RedirectToAction("Termos", "Termos");
+                    }
+                }
+
+
+                return View("Registar2");
             }
-
-            ModelState.Clear();
-
-            return View("Registar",new Cliente());    
         }
-
         [HttpGet]
         public ActionResult Login()
         {

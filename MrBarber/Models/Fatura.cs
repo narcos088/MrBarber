@@ -19,10 +19,8 @@ namespace MrBarber.Models
         public string CodigoProm { get; set; }
         public System.DateTime DataInicioReal { get; set; }
         public System.DateTime DataFinalReal { get; set; }
-        public int Cliente { get; set; }
-        public int Funcionario { get; set; }
-        public int Servico { get; set; }
+        public Nullable<int> Agendamento { get; set; }
     
-        public virtual Agendamento Agendamento { get; set; }
+        public virtual Agendamento Agendamento1 { get; set; }
     }
 }

@@ -7,9 +7,7 @@
       <Schema Namespace="MrBarberDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Agendamento">
           <Key>
-            <PropertyRef Name="Cliente" />
-            <PropertyRef Name="Funcionario" />
-            <PropertyRef Name="Servico" />
+            <PropertyRef Name="idAgendamento" />
           </Key>
           <Property Name="DataInicio" Type="datetime" Nullable="false" />
           <Property Name="Estado" Type="nvarchar" MaxLength="30" Nullable="false" />
@@ -17,6 +15,7 @@
           <Property Name="Funcionario" Type="int" Nullable="false" />
           <Property Name="Servico" Type="int" Nullable="false" />
           <Property Name="Reclamacao" Type="text" />
+          <Property Name="idAgendamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
@@ -39,13 +38,11 @@
             <PropertyRef Name="idFatura" />
           </Key>
           <Property Name="idFatura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PrecoTotal" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="PrecoTotal" Type="decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="CodigoProm" Type="nvarchar" MaxLength="5" />
           <Property Name="DataInicioReal" Type="datetime" Nullable="false" />
           <Property Name="DataFinalReal" Type="datetime" Nullable="false" />
-          <Property Name="Cliente" Type="int" Nullable="false" />
-          <Property Name="Funcionario" Type="int" Nullable="false" />
-          <Property Name="Servico" Type="int" Nullable="false" />
+          <Property Name="Agendamento" Type="int" />
         </EntityType>
         <EntityType Name="Funcionario">
           <Key>
@@ -63,11 +60,9 @@
           <Key>
             <PropertyRef Name="idLocalizacao" />
           </Key>
-          <Property Name="idLocalizacao" Type="int" Nullable="false" />
-          <Property Name="LatitudeN" Type="decimal" Precision="3" Scale="3" Nullable="false" />
-          <Property Name="LatitudeS" Type="decimal" Precision="3" Scale="3" Nullable="false" />
-          <Property Name="LatitudeE" Type="decimal" Precision="3" Scale="3" Nullable="false" />
-          <Property Name="LatitudeO" Type="decimal" Precision="3" Scale="3" Nullable="false" />
+          <Property Name="idLocalizacao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" Nullable="false" />
+          <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" Nullable="false" />
         </EntityType>
         <EntityType Name="Recomendacao">
           <Key>
@@ -81,22 +76,12 @@
           <Key>
             <PropertyRef Name="idServico" />
           </Key>
-          <Property Name="idServico" Type="int" Nullable="false" />
+          <Property Name="idServico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Descricao" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Preco" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="Preco" Type="decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="Pontos" Type="int" Nullable="false" />
           <Property Name="ValorPontos" Type="int" Nullable="false" />
-          <Property Name="TempoServico" Type="decimal" Precision="3" Scale="2" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
+          <Property Name="TempoServico" Type="decimal" Precision="5" Scale="2" Nullable="false" />
         </EntityType>
         <Association Name="FK_Agendamento_Cliente">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
@@ -147,18 +132,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Fatura_Agendamento">
-          <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="1" />
+          <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="0..1" />
           <End Role="Fatura" Type="Self.Fatura" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agendamento">
-              <PropertyRef Name="Cliente" />
-              <PropertyRef Name="Funcionario" />
-              <PropertyRef Name="Servico" />
+              <PropertyRef Name="idAgendamento" />
             </Principal>
             <Dependent Role="Fatura">
-              <PropertyRef Name="Cliente" />
-              <PropertyRef Name="Funcionario" />
-              <PropertyRef Name="Servico" />
+              <PropertyRef Name="Agendamento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -194,7 +175,6 @@
           <EntitySet Name="Localizacao" EntityType="Self.Localizacao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Recomendacao" EntityType="Self.Recomendacao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Servico" EntityType="Self.Servico" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Agendamento_Cliente" Association="Self.FK_Agendamento_Cliente">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Agendamento" EntitySet="Agendamento" />
@@ -231,9 +211,7 @@
       <Schema Namespace="MrBarberDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Agendamento">
           <Key>
-            <PropertyRef Name="Cliente" />
-            <PropertyRef Name="Funcionario" />
-            <PropertyRef Name="Servico" />
+            <PropertyRef Name="idAgendamento" />
           </Key>
           <Property Name="DataInicio" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Estado" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
@@ -241,6 +219,7 @@
           <Property Name="Funcionario" Type="Int32" Nullable="false" />
           <Property Name="Servico" Type="Int32" Nullable="false" />
           <Property Name="Reclamacao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="idAgendamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Cliente1" Relationship="Self.FK_Agendamento_Cliente" FromRole="Agendamento" ToRole="Cliente" />
           <NavigationProperty Name="Funcionario1" Relationship="Self.FK_Agendamento_Funcionario" FromRole="Agendamento" ToRole="Funcionario" />
           <NavigationProperty Name="Servico1" Relationship="Self.FK_Agendamento_Servico" FromRole="Agendamento" ToRole="Servico" />
@@ -270,14 +249,12 @@
             <PropertyRef Name="idFatura" />
           </Key>
           <Property Name="idFatura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PrecoTotal" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="PrecoTotal" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="CodigoProm" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="DataInicioReal" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DataFinalReal" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Cliente" Type="Int32" Nullable="false" />
-          <Property Name="Funcionario" Type="Int32" Nullable="false" />
-          <Property Name="Servico" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Agendamento" Relationship="Self.FK_Fatura_Agendamento" FromRole="Fatura" ToRole="Agendamento" />
+          <Property Name="Agendamento" Type="Int32" />
+          <NavigationProperty Name="Agendamento1" Relationship="Self.FK_Fatura_Agendamento" FromRole="Fatura" ToRole="Agendamento" />
         </EntityType>
         <EntityType Name="Funcionario">
           <Key>
@@ -297,11 +274,9 @@
           <Key>
             <PropertyRef Name="idLocalizacao" />
           </Key>
-          <Property Name="idLocalizacao" Type="Int32" Nullable="false" />
-          <Property Name="LatitudeN" Type="Decimal" Precision="3" Scale="3" Nullable="false" />
-          <Property Name="LatitudeS" Type="Decimal" Precision="3" Scale="3" Nullable="false" />
-          <Property Name="LatitudeE" Type="Decimal" Precision="3" Scale="3" Nullable="false" />
-          <Property Name="LatitudeO" Type="Decimal" Precision="3" Scale="3" Nullable="false" />
+          <Property Name="idLocalizacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" Nullable="false" />
+          <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" Nullable="false" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_Cliente_Localizacao" FromRole="Localizacao" ToRole="Cliente" />
           <NavigationProperty Name="Funcionarios" Relationship="Self.FK_Funcionario_Localizacao" FromRole="Localizacao" ToRole="Funcionario" />
         </EntityType>
@@ -318,23 +293,13 @@
           <Key>
             <PropertyRef Name="idServico" />
           </Key>
-          <Property Name="idServico" Type="Int32" Nullable="false" />
+          <Property Name="idServico" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Preco" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="Preco" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="Pontos" Type="Int32" Nullable="false" />
           <Property Name="ValorPontos" Type="Int32" Nullable="false" />
-          <Property Name="TempoServico" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="TempoServico" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
           <NavigationProperty Name="Agendamentoes" Relationship="Self.FK_Agendamento_Servico" FromRole="Servico" ToRole="Agendamento" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Agendamento_Cliente">
           <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
@@ -373,18 +338,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Fatura_Agendamento">
-          <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="1" />
+          <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="0..1" />
           <End Role="Fatura" Type="Self.Fatura" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agendamento">
-              <PropertyRef Name="Cliente" />
-              <PropertyRef Name="Funcionario" />
-              <PropertyRef Name="Servico" />
+              <PropertyRef Name="idAgendamento" />
             </Principal>
             <Dependent Role="Fatura">
-              <PropertyRef Name="Cliente" />
-              <PropertyRef Name="Funcionario" />
-              <PropertyRef Name="Servico" />
+              <PropertyRef Name="Agendamento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -432,7 +393,6 @@
           <EntitySet Name="Localizacaos" EntityType="Self.Localizacao" />
           <EntitySet Name="Recomendacaos" EntityType="Self.Recomendacao" />
           <EntitySet Name="Servicoes" EntityType="Self.Servico" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <AssociationSet Name="FK_Agendamento_Cliente" Association="Self.FK_Agendamento_Cliente">
             <End Role="Cliente" EntitySet="Clientes" />
             <End Role="Agendamento" EntitySet="Agendamentoes" />
@@ -477,6 +437,7 @@
                 <ScalarProperty Name="Funcionario" ColumnName="Funcionario" />
                 <ScalarProperty Name="Servico" ColumnName="Servico" />
                 <ScalarProperty Name="Reclamacao" ColumnName="Reclamacao" />
+                <ScalarProperty Name="idAgendamento" ColumnName="idAgendamento" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -505,9 +466,7 @@
                 <ScalarProperty Name="CodigoProm" ColumnName="CodigoProm" />
                 <ScalarProperty Name="DataInicioReal" ColumnName="DataInicioReal" />
                 <ScalarProperty Name="DataFinalReal" ColumnName="DataFinalReal" />
-                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
-                <ScalarProperty Name="Funcionario" ColumnName="Funcionario" />
-                <ScalarProperty Name="Servico" ColumnName="Servico" />
+                <ScalarProperty Name="Agendamento" ColumnName="Agendamento" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -528,10 +487,8 @@
             <EntityTypeMapping TypeName="MrBarberDatabaseModel.Localizacao">
               <MappingFragment StoreEntitySet="Localizacao">
                 <ScalarProperty Name="idLocalizacao" ColumnName="idLocalizacao" />
-                <ScalarProperty Name="LatitudeN" ColumnName="LatitudeN" />
-                <ScalarProperty Name="LatitudeS" ColumnName="LatitudeS" />
-                <ScalarProperty Name="LatitudeE" ColumnName="LatitudeE" />
-                <ScalarProperty Name="LatitudeO" ColumnName="LatitudeO" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -553,17 +510,6 @@
                 <ScalarProperty Name="Pontos" ColumnName="Pontos" />
                 <ScalarProperty Name="ValorPontos" ColumnName="ValorPontos" />
                 <ScalarProperty Name="TempoServico" ColumnName="TempoServico" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="MrBarberDatabaseModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

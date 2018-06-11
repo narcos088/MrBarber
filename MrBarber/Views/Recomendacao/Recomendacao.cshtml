@@ -1,0 +1,32 @@
+﻿@model MrBarber.Models.Cliente
+
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+@{
+    ViewBag.Title = "Recomendacoes";
+}
+
+
+
+
+<h2>Insira a sua recomendação:</h2>
+
+
+@using (Html.BeginForm("Concluir", "Recomendacao", FormMethod.Post))
+{
+
+
+    <div class="container">
+        <input type="text" name="recomendacao" id="recomendacao" style="width: 5000px;height:300px;" required>
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Inserir Recomendação" class="btn btn-default" />
+        </div>
+    </div>
+}

@@ -49,7 +49,7 @@ namespace MrBarber.Controllers
                 }
             }
 
-            return RedirectToAction("Perfil","Perfil");
+            return View("Index3");
         }
         [HttpPost]
             public ActionResult Recusar()

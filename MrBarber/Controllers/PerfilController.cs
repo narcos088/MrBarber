@@ -30,11 +30,11 @@ namespace MrBarber.Controllers
 
 
         [HttpPost]
-        public ActionResult Reclamacoes()
+        public ActionResult Recomendacao()
         {
             Cliente cliente = (Cliente)TempData["cliente"];
             TempData.Keep("cliente");
-            return RedirectToAction("Reclamacoes", "Reclamacoes");
+            return RedirectToAction("Recomendacao", "Recomendacao");
         }
     }
 }

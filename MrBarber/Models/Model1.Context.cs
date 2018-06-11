@@ -32,6 +32,5 @@ namespace MrBarber.Models
         public virtual DbSet<Localizacao> Localizacaos { get; set; }
         public virtual DbSet<Recomendacao> Recomendacaos { get; set; }
         public virtual DbSet<Servico> Servicoes { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

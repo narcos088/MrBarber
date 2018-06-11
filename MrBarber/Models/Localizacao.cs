@@ -22,10 +22,8 @@ namespace MrBarber.Models
         }
     
         public int idLocalizacao { get; set; }
-        public decimal LatitudeN { get; set; }
-        public decimal LatitudeS { get; set; }
-        public decimal LatitudeE { get; set; }
-        public decimal LatitudeO { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cliente> Clientes { get; set; }

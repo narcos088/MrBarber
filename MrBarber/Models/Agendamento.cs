@@ -11,7 +11,8 @@ namespace MrBarber.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class Agendamento
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,11 +27,33 @@ namespace MrBarber.Models
         public int Funcionario { get; set; }
         public int Servico { get; set; }
         public string Reclamacao { get; set; }
+        public int idAgendamento { get; set; }
     
         public virtual Cliente Cliente1 { get; set; }
         public virtual Funcionario Funcionario1 { get; set; }
         public virtual Servico Servico1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Fatura> Faturas { get; set; }
+
+        public string NomeFuncionario()
+        {
+
+            string nome = "Nenhum";
+            using (MrBarberDatabaseEntities db = new MrBarberDatabaseEntities())
+            {
+                var funcionarios = (from m in db.Funcionarios where m.idFuncionario == this.Funcionario select m);
+
+                if ((funcionarios.ToList<Funcionario>().Count > 0))
+                {
+
+                    var myList = funcionarios.ToList<Funcionario>();
+                    Funcionario funcionario = myList.ElementAt(0);
+                    nome = funcionario.Nome;
+
+                }
+            }
+            return nome;
+
+        }
     }
 }
