@@ -16,6 +16,7 @@
           <Property Name="Servico" Type="int" Nullable="false" />
           <Property Name="Reclamacao" Type="text" />
           <Property Name="idAgendamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Localizacao" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
@@ -31,7 +32,6 @@
           <Property Name="CodigoProm" Type="nvarchar" MaxLength="5" Nullable="false" />
           <Property Name="CodigoAmigo" Type="nvarchar" MaxLength="5" />
           <Property Name="Pontos" Type="int" Nullable="false" />
-          <Property Name="Localizacao" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Fatura">
           <Key>
@@ -107,6 +107,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Agendamento_Localizacao">
+          <End Role="Localizacao" Type="Self.Localizacao" Multiplicity="1" />
+          <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localizacao">
+              <PropertyRef Name="idLocalizacao" />
+            </Principal>
+            <Dependent Role="Agendamento">
+              <PropertyRef Name="Localizacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Agendamento_Servico">
           <End Role="Servico" Type="Self.Servico" Multiplicity="1" />
           <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="*" />
@@ -116,18 +128,6 @@
             </Principal>
             <Dependent Role="Agendamento">
               <PropertyRef Name="Servico" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Cliente_Localizacao">
-          <End Role="Localizacao" Type="Self.Localizacao" Multiplicity="1" />
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Localizacao">
-              <PropertyRef Name="idLocalizacao" />
-            </Principal>
-            <Dependent Role="Cliente">
-              <PropertyRef Name="Localizacao" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -183,13 +183,13 @@
             <End Role="Funcionario" EntitySet="Funcionario" />
             <End Role="Agendamento" EntitySet="Agendamento" />
           </AssociationSet>
+          <AssociationSet Name="FK_Agendamento_Localizacao" Association="Self.FK_Agendamento_Localizacao">
+            <End Role="Localizacao" EntitySet="Localizacao" />
+            <End Role="Agendamento" EntitySet="Agendamento" />
+          </AssociationSet>
           <AssociationSet Name="FK_Agendamento_Servico" Association="Self.FK_Agendamento_Servico">
             <End Role="Servico" EntitySet="Servico" />
             <End Role="Agendamento" EntitySet="Agendamento" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cliente_Localizacao" Association="Self.FK_Cliente_Localizacao">
-            <End Role="Localizacao" EntitySet="Localizacao" />
-            <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
           <AssociationSet Name="FK_Fatura_Agendamento" Association="Self.FK_Fatura_Agendamento">
             <End Role="Agendamento" EntitySet="Agendamento" />
@@ -220,8 +220,10 @@
           <Property Name="Servico" Type="Int32" Nullable="false" />
           <Property Name="Reclamacao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="idAgendamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Localizacao" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Cliente1" Relationship="Self.FK_Agendamento_Cliente" FromRole="Agendamento" ToRole="Cliente" />
           <NavigationProperty Name="Funcionario1" Relationship="Self.FK_Agendamento_Funcionario" FromRole="Agendamento" ToRole="Funcionario" />
+          <NavigationProperty Name="Localizacao1" Relationship="Self.FK_Agendamento_Localizacao" FromRole="Agendamento" ToRole="Localizacao" />
           <NavigationProperty Name="Servico1" Relationship="Self.FK_Agendamento_Servico" FromRole="Agendamento" ToRole="Servico" />
           <NavigationProperty Name="Faturas" Relationship="Self.FK_Fatura_Agendamento" FromRole="Agendamento" ToRole="Fatura" />
         </EntityType>
@@ -239,9 +241,7 @@
           <Property Name="CodigoProm" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CodigoAmigo" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="Pontos" Type="Int32" Nullable="false" />
-          <Property Name="Localizacao" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Agendamentoes" Relationship="Self.FK_Agendamento_Cliente" FromRole="Cliente" ToRole="Agendamento" />
-          <NavigationProperty Name="Localizacao1" Relationship="Self.FK_Cliente_Localizacao" FromRole="Cliente" ToRole="Localizacao" />
           <NavigationProperty Name="Recomendacaos" Relationship="Self.FK_Recomendacao_Cliente" FromRole="Cliente" ToRole="Recomendacao" />
         </EntityType>
         <EntityType Name="Fatura">
@@ -277,7 +277,7 @@
           <Property Name="idLocalizacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" Nullable="false" />
           <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" Nullable="false" />
-          <NavigationProperty Name="Clientes" Relationship="Self.FK_Cliente_Localizacao" FromRole="Localizacao" ToRole="Cliente" />
+          <NavigationProperty Name="Agendamentoes" Relationship="Self.FK_Agendamento_Localizacao" FromRole="Localizacao" ToRole="Agendamento" />
           <NavigationProperty Name="Funcionarios" Relationship="Self.FK_Funcionario_Localizacao" FromRole="Localizacao" ToRole="Funcionario" />
         </EntityType>
         <EntityType Name="Recomendacao">
@@ -325,6 +325,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Agendamento_Localizacao">
+          <End Role="Localizacao" Type="Self.Localizacao" Multiplicity="1" />
+          <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localizacao">
+              <PropertyRef Name="idLocalizacao" />
+            </Principal>
+            <Dependent Role="Agendamento">
+              <PropertyRef Name="Localizacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Agendamento_Servico">
           <End Role="Servico" Type="Self.Servico" Multiplicity="1" />
           <End Role="Agendamento" Type="Self.Agendamento" Multiplicity="*" />
@@ -346,18 +358,6 @@
             </Principal>
             <Dependent Role="Fatura">
               <PropertyRef Name="Agendamento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Cliente_Localizacao">
-          <End Role="Localizacao" Type="Self.Localizacao" Multiplicity="1" />
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Localizacao">
-              <PropertyRef Name="idLocalizacao" />
-            </Principal>
-            <Dependent Role="Cliente">
-              <PropertyRef Name="Localizacao" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -401,6 +401,10 @@
             <End Role="Funcionario" EntitySet="Funcionarios" />
             <End Role="Agendamento" EntitySet="Agendamentoes" />
           </AssociationSet>
+          <AssociationSet Name="FK_Agendamento_Localizacao" Association="Self.FK_Agendamento_Localizacao">
+            <End Role="Localizacao" EntitySet="Localizacaos" />
+            <End Role="Agendamento" EntitySet="Agendamentoes" />
+          </AssociationSet>
           <AssociationSet Name="FK_Agendamento_Servico" Association="Self.FK_Agendamento_Servico">
             <End Role="Servico" EntitySet="Servicoes" />
             <End Role="Agendamento" EntitySet="Agendamentoes" />
@@ -408,10 +412,6 @@
           <AssociationSet Name="FK_Fatura_Agendamento" Association="Self.FK_Fatura_Agendamento">
             <End Role="Agendamento" EntitySet="Agendamentoes" />
             <End Role="Fatura" EntitySet="Faturas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cliente_Localizacao" Association="Self.FK_Cliente_Localizacao">
-            <End Role="Localizacao" EntitySet="Localizacaos" />
-            <End Role="Cliente" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="FK_Recomendacao_Cliente" Association="Self.FK_Recomendacao_Cliente">
             <End Role="Cliente" EntitySet="Clientes" />
@@ -438,6 +438,7 @@
                 <ScalarProperty Name="Servico" ColumnName="Servico" />
                 <ScalarProperty Name="Reclamacao" ColumnName="Reclamacao" />
                 <ScalarProperty Name="idAgendamento" ColumnName="idAgendamento" />
+                <ScalarProperty Name="Localizacao" ColumnName="Localizacao" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -454,7 +455,6 @@
                 <ScalarProperty Name="CodigoProm" ColumnName="CodigoProm" />
                 <ScalarProperty Name="CodigoAmigo" ColumnName="CodigoAmigo" />
                 <ScalarProperty Name="Pontos" ColumnName="Pontos" />
-                <ScalarProperty Name="Localizacao" ColumnName="Localizacao" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -31,11 +31,9 @@ namespace MrBarber.Models
         public string CodigoProm { get; set; }
         public string CodigoAmigo { get; set; }
         public int Pontos { get; set; }
-        public int Localizacao { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Agendamento> Agendamentoes { get; set; }
-        public virtual Localizacao Localizacao1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recomendacao> Recomendacaos { get; set; }
     }

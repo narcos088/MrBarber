@@ -46,40 +46,52 @@ namespace MrBarber.Controllers
             return View("Index");
         }
 
+
+        public double Distance(double lat1, double lon1, double lat2, double lon2)
+        {
+            double deg2radMultiplier = Math.PI / 180;
+            lat1 = lat1 * deg2radMultiplier;
+            lon1 = lon1 * deg2radMultiplier;
+            lat2 = lat2 * deg2radMultiplier;
+            lon2 = lon2 * deg2radMultiplier;
+
+            double radius = 6378.137; // earth mean radius defined by WGS84
+            double dlon = lon2 - lon1;
+            double distance = Math.Acos(Math.Sin(lat1) * Math.Sin(lat2) + Math.Cos(lat1) * Math.Cos(lat2) * Math.Cos(dlon)) * radius;
+
+          
+                return (distance);
+           
+        }
+
+
         [HttpGet]
         public ActionResult OndeEstamos()
         {
-            Localizacao localizacao = new Localizacao();
-
-            
-            
-            TempData["localizacao"] = localizacao;
-            TempData.Keep("localizacao");
-
-            return View(localizacao);
+            return View("OndeEstamos");
         }
 
         [HttpPost]
-        public ActionResult OndeEstamos2(string Lat, string Lng)
+        public ActionResult ConfirmaLoc(string Lat, string Lng)
         {
-
-            Localizacao localizacao = (Localizacao)TempData["localizacao"];
-         /* localizacao.Latitude = decimal.Parse(Lat, System.Globalization.CultureInfo.InvariantCulture);
-            localizacao.Longitude = System.Convert.ToDouble(Lng);*/
-
-             double x = double.Parse(Lat, System.Globalization.CultureInfo.InvariantCulture);
-             double y = double.Parse(Lng, System.Globalization.CultureInfo.InvariantCulture);
-
-            localizacao.Latitude = (decimal)x;
-            localizacao.Longitude = (decimal)y;
-
-            using (MrBarberDatabaseEntities db = new MrBarberDatabaseEntities())
+            if (Lat != "" && Lng != "")
             {
-                db.Localizacaos.Add(localizacao);
-                db.SaveChanges();
-            }
+                double x = double.Parse(Lat, System.Globalization.CultureInfo.InvariantCulture);
+                double y = double.Parse(Lng, System.Globalization.CultureInfo.InvariantCulture);
 
-            return View();
+                double distancia = Distance(x, y, 41.557813, -8.399161);
+
+
+                ViewData["distancia"] = distancia;
+
+                if (distancia <= 7)
+                {
+                    return View("OndeEstamos2");
+                }
+
+                else return View("OndeEstamos3");
+            }
+            else return View("OndeEstamos");
         }
 
 
@@ -131,17 +143,21 @@ namespace MrBarber.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var clientes = (from m in db.Clientes
-                                    where m.CodigoProm == cliente.CodigoAmigo
-                                    select m);
-
-                    if (clientes.ToList<Cliente>().Count > 0)
+                    if (cliente.CodigoAmigo != null)
                     {
-                        return RedirectToAction("Termos", "Termos");
-                    }
+                        var clientes = (from m in db.Clientes
+                                        where m.CodigoProm == cliente.CodigoAmigo
+                                        select m);
+
+                        if (clientes.ToList<Cliente>().Count > 0)
+                        {
+                            return RedirectToAction("Termos", "Termos");
+                        }
+                        else return View("Registar2"); 
+
+                    } else return RedirectToAction("Termos", "Termos");
+
                 }
-
-
                 return View("Registar2");
             }
         }

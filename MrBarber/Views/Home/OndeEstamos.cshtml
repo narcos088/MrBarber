@@ -1,5 +1,5 @@
-﻿@model MrBarber.Models.Localizacao
-@using (Html.BeginForm("OndeEstamos2", "Home",FormMethod.Post))
+﻿
+@using (Html.BeginForm("ConfirmaLoc", "Home", FormMethod.Post))
 {
     <!DOCTYPE html>
     <html lang="en">
@@ -10,14 +10,10 @@
         <title>My Google Map</title>
         <style>
             #map {
+                width: 970px;
                 height: 400px;
-                width: 100%;
-            }
-
-            #mapCanvas {
-                width: 500px;
-                height: 400px;
-                float: left;
+                margin: auto;
+                margin-top: 15px;
             }
 
             #infoPanel {
@@ -28,6 +24,17 @@
                 #infoPanel div {
                     margin-bottom: 5px;
                 }
+
+            #button {
+                height: 100%;
+                width: 100px;
+                margin: auto;
+                position: relative;
+            }
+
+            .block {
+                margin-top: 20px;
+            }
         </style>
         <script>
             function initMap() {
@@ -38,7 +45,7 @@
                 }
 
                 // New map
-                var map = new google.maps.Map(document.getElementById('mapCanvas'), options);
+                var map = new google.maps.Map(document.getElementById('map'), options);
 
                 // Listen for click on map
                 google.maps.event.addListener(map, 'click', function (event) {
@@ -77,23 +84,24 @@
         </script>
     </head>
     <body>
-        <div id="mapCanvas"></div>
-        <div id="infoPanel">
-            <b>Marker status:</b>
-            <div id="markerStatus"><i>Click and drag the marker.</i></div>
-            <b>Current position:</b>
-            <div id="info"></div>
-            <b>Closest matching address:</b>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="text" name="Lat" id="Lat">
-                <input type="text" name="Lng" id="Lng">
-                <input type="submit" value="Create" class="btn btn-default" />
+        <div class="block">
+            <h1>Verifique se a sua morada tem cobertura</h1>
+            <div class="container container-fluid">
+                <div id="map"></div>
             </div>
-
+            <div class="row">
+                <div class="col-md-3 col-md-offset-2">
+                    <input type="submit" value="Cobertura" id="button" class="btn btn-default" />
+                </div>
+                <div class="col-md-3">
+                    <label for="Lat"><b>Latitude:</b></label>
+                    <input type="text" name="Lat" id="Lat">
+                </div>
+                <div class="col-md-3 ">
+                    <label for="Lng"><b>Longitude:</b></label>
+                    <input type="text" name="Lng" id="Lng">
+                </div>
+            </div>
         </div>
 
     </body>

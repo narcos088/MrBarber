@@ -1,5 +1,10 @@
 ﻿
-@using (Html.BeginForm("ConfirmaLoc", "Home", FormMethod.Post))
+@{
+    ViewBag.Title = "ErroLocal";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+@using (Html.BeginForm("PosSlot", "Slot", FormMethod.Post))
 {
     <!DOCTYPE html>
     <html lang="en">
@@ -10,10 +15,19 @@
         <title>My Google Map</title>
         <style>
             #map {
-                width: 970px;
+                width: 100%;
                 height: 400px;
+                float: left;
+                margin-left: 0px;
+            }
+
+            #button {
+                height: 50px;
+                width: 100px;
                 margin: auto;
-                margin-top: 15px;
+                position: relative;
+                top: 200px;
+                left: 100px;
             }
 
             #infoPanel {
@@ -25,11 +39,7 @@
                     margin-bottom: 5px;
                 }
 
-            #button {
-                height: 100%;
-                width: 100px;
-                margin: auto;
-                position: relative;
+            #Lat {
             }
 
             .block {
@@ -84,32 +94,33 @@
         </script>
     </head>
     <body>
-        <div class="alert alert-dismissible alert-success">
+        <div>
+            <div class="alert alert-dismissible alert-danger">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Confirma-se que a sua localização está dentro do nosso raio de acção! </strong> Usufrua das nossas funcionalidades!.
+            <strong>Atenção!</strong>A localização que inseriu não se situa no nosso raio de acção.
         </div>
 
-        <div class="block">
-            <h1>Verifique se a sua morada tem cobertura</h1>
-            <div class="container container-fluid">
-                <div id="map"></div>
-            </div>
-            <div class="row">
-                <div class="col-md-3 col-md-offset-2">
-                    <input type="submit" value="Cobertura" id="button" class="btn btn-default" />
+            <h1>Selecione o dia e a localização que desejar!</h1>
+            <div class="block">
+                <div class="col-md-4">
+                    <label for="Calendar">Dia de Realização:</label>
+                    <input type="date" name="calendar" id="calendar" />
+                    <input type="submit" value="Validar" class="btn btn-default" id="button" />
                 </div>
-                <div class="col-md-3">
-                    <label for="Lat"><b>Latitude:</b></label>
-                    <input type="text" name="Lat" id="Lat">
-                </div>
-                <div class="col-md-3 ">
-                    <label for="Lng"><b>Longitude:</b></label>
-                    <input type="text" name="Lng" id="Lng">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div id="map"></div>
+                    </div>
+
+                    <div class="row">
+                        <label for="Lat"><b>Latitude:</b></label>
+                        <input type="text" name="Lat" id="Lat">
+                        <label for="Lng"><b>Longitude:</b></label>
+                        <input type="text" name="Lng" id="Lng">
+                    </div>
                 </div>
             </div>
         </div>
-
     </body>
 </html>
 }
-

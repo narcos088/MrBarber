@@ -69,6 +69,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - MrBarber</title>
+
+    <script>
+        function nrealizados() {
+
+            using(MrBarberDatabaseEntities db = new MrBarberDatabaseEntities())
+            {
+                var agendamentos = (from m in db.Agendamentos
+                where m.Funcionario == (int)id && m.Estado == "Realizado"
+                select m);
+
+
+                var res = agendamentos.ToList<Agendamento>().Count;
+            }
+                    
+            }
+        }
+    </script>
+
 </head>
 <body>
     <form>

@@ -17,7 +17,7 @@ namespace MrBarber.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Localizacao()
         {
-            this.Clientes = new HashSet<Cliente>();
+            this.Agendamentoes = new HashSet<Agendamento>();
             this.Funcionarios = new HashSet<Funcionario>();
         }
     
@@ -26,7 +26,7 @@ namespace MrBarber.Models
         public decimal Longitude { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cliente> Clientes { get; set; }
+        public virtual ICollection<Agendamento> Agendamentoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Funcionario> Funcionarios { get; set; }
     }

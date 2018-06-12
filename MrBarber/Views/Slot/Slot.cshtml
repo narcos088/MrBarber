@@ -1,8 +1,130 @@
-﻿
+﻿@model List<int>
 @{
     ViewBag.Title = "Slot";
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
-<h2>Slot</h2>
 
+@using (Html.BeginForm("Finalizar", "Slot", FormMethod.Post))
+{
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style type="text/css">
+        .checkbox {
+            width: 30px;
+            height: 30px;
+            background-color: #ddd;
+            position: relative;
+        }
+
+            .checkbox input[type="checkbox"] {
+                visibility: hidden;
+            }
+
+            .checkbox label {
+                width: 28px;
+                height: 28px;
+                position: absolute;
+                top: 1px;
+                left: 1px;
+                background-color: white;
+                cursor: pointer;
+            }
+
+                .checkbox label:before {
+                    content: '';
+                    width: 9px;
+                    height: 9px;
+                    border: 3px solid white;
+                    position: absolute;
+                    border-top: none;
+                    border-right: none;
+                    transform: rotate(-45deg);
+                    top: 8px;
+                    left: 8px;
+                    opacity: 0;
+                }
+
+            .checkbox input[type="checkbox"]:checked + label:before {
+                opacity: 1;
+            }
+
+        . input[type="checkbox"]:checked + label {
+            background-color: #57bba7;
+        }
+
+        #button {
+            height: 25px;
+            width: 200px;
+            margin: auto;
+            position: relative;
+            left: 200px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function horario(id) {
+            document.getElementById(id.ToString()).disable = true;
+            document.getElementById("changer").style.opacity = 0.5;
+        }
+    </script>
+
+    
+
+    <h1>Selecione o espaço temporal que desejar </h1>
+    <div class="container container-fluid clearfix">
+        <div>
+            <div class="container container-fluid">
+                <label for="0">09:00 -- 10:00</label>
+                <input type="radio" name="radio" id="zero" />
+            </div>
+            <hr />
+            <div class="container container-fluid">
+                <label for="1">10:00 -- 11:00</label>
+                <input type="radio" name="radio" id="um" />
+            </div>
+            <hr />
+            <div class="container container-fluid">
+                <label for="2">11:00 -- 12:00</label>
+                <input type="radio" name="radio" id="dois" />
+            </div>
+            <hr />
+            <div class="container container-fluid">
+                <label for="3">13:00 -- 14:00</label>
+                <input type="radio" name="radio" id="tres" />
+            </div>
+            <hr />
+            <div class="container container-fluid">
+                <label for="4">14:00 -- 15:00</label>
+                <input type="radio" name="radio" id="quatro" />
+            </div>
+            <hr />
+            <div class="container container-fluid">
+                <label for="5">15:00 -- 16:00</label>
+                <input type="radio" name="radio" id="cinco" />
+            </div>
+            <hr />
+            <div class="container container-fluid">
+                <label for="6">16:00 -- 17:00</label>
+                <input type="radio" name="radio" id="seis" />
+            </div>
+            <hr />
+            <div id="changer" class="container container-fluid">
+                <label for="7">17:00 -- 18:00</label>
+                <input type="radio" name="radio" id="sete" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row clearfix">
+        <button id="button">Finalizar Agendamento</button>
+    </div>
+</body>
+</html>
+        }

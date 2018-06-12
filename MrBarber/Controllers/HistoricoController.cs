@@ -30,7 +30,7 @@ namespace MrBarber.Controllers
                         return View(myList.AsEnumerable());
                 }
             }
-            return View();
+            return RedirectToAction("Perfil", "Perfil");
         }
     }
 }

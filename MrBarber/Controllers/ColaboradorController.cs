@@ -8,7 +8,7 @@ namespace MrBarber.Controllers
 {
     public class ColaboradorController : Controller
     {
-        // GET: Colaborador
+        // GET: Colaborador Raio=7
         public ActionResult Colaborador()
         {
             return View();
@@ -19,7 +19,7 @@ namespace MrBarber.Controllers
         {
             TempData["idColaborador"] = id2;
             TempData.Keep("idColaborador");
-            return RedirectToAction("Slot", "Slot");
+            return RedirectToAction("PreSlot", "Slot");
         }
 
     }

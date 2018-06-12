@@ -302,6 +302,11 @@
     <Content Include="Views\Home\OndeEstamos2.cshtml" />
     <Content Include="Views\Home\Registar2.cshtml" />
     <Content Include="Views\Termos\Index3.cshtml" />
+    <Content Include="Views\Home\OndeEstamos3.cshtml" />
+    <Content Include="Views\Slot\PreSlot.cshtml" />
+    <Content Include="Views\Slot\ErroData.cshtml" />
+    <Content Include="Views\Slot\ErroLocal.cshtml" />
+    <Content Include="Views\Slot\Finalizar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
